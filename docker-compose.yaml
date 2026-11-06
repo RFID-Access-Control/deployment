@@ -1,0 +1,26 @@
+services:
+  backend:
+    container_name: backend
+    image: rfidaccesscontrol/backend:main
+    restart: unless-stopped
+
+    environment:
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET muss gesetzt sein}
+      DATABASE_URL: ${DATABASE_URL:-sqlite:///app/data/database.db}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?ADMIN_PASSWORD muss gesetzt sein}
+      USER_PASSWORD: ${USER_PASSWORD:?USER_PASSWORD muss gesetzt sein}
+
+    expose:
+      - "5000"
+
+    volumes:
+      - ./backend-data:/app/data
+
+  frontend:
+    container_name: frontend
+    image: rfidaccesscontrol/frontend:main
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
