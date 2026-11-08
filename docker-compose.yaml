@@ -6,6 +6,7 @@ services:
 
     environment:
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET muss gesetzt sein}
+      DATABASE_URL: ${DATABASE_URL:-sqlite:///app/data/database.db}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?ADMIN_PASSWORD muss gesetzt sein}
       USER_PASSWORD: ${USER_PASSWORD:?USER_PASSWORD muss gesetzt sein}
 
